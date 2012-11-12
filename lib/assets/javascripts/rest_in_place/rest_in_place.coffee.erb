@@ -15,8 +15,8 @@ class RestInPlaceEditor
   
   # Toggle the element associated with this editor from normal to a form field  
   activate : ->
-    @$element.trigger('activate.rest-in-place')
     @oldValue = @$element.html()
+    @$element.trigger('activate.rest-in-place')
     @$element.addClass('rip-active')
     @$element.unbind('click', @clickHandler)
     @activateForm()
