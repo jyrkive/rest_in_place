@@ -20,6 +20,7 @@ class RestInPlaceEditor
     @$element.addClass('rip-active')
     @$element.unbind('click', @clickHandler)
     @activateForm()
+    @$element.trigger('ready.rest-in-place')
   
   # Restore the element to its default state
   abort : ->
