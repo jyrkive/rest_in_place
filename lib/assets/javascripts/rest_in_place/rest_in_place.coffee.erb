@@ -28,7 +28,7 @@ class RestInPlaceEditor
     @$element
       .html(@oldValue)
       .removeClass('rip-active')
-    setTimeout(bindClickHandler.bind(this), 100)
+    setTimeout(@bindClickHandler.bind(this), 100)
   
   # Take the changes a user has made and send them to the server.
   # If the server accepted the request but does not send back a
@@ -154,7 +154,7 @@ class RestInPlaceEditor
     @$element.html(@extractAttributeFromData(data))
     @$element.removeClass('rip-active')
     @$element.trigger('success.rest-in-place', data)
-    setTimeout(bindClickHandler.bind(this), 100)
+    setTimeout(@bindClickHandler.bind(this), 100)
   
   # Creates a clickhandler for the current instance of RestInPlaceEditor, that
   # has its this pointer permanently bound to the editor instance.
