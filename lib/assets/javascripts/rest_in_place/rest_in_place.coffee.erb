@@ -15,6 +15,8 @@ class RestInPlaceEditor
   
   # Toggle the element associated with this editor from normal to a form field  
   activate : ->
+    return if window.restInPlaceEditorActive
+    window.restInPlaceEditorActive = true
     @oldValue = @$element.html()
     @$element.trigger('activate.rest-in-place')
     @$element.addClass('rip-active')
@@ -29,6 +31,7 @@ class RestInPlaceEditor
       .html(@oldValue)
       .removeClass('rip-active')
     setTimeout(@bindClickHandler.bind(this), 100)
+    window.restInPlaceEditorActive = false
   
   # Take the changes a user has made and send them to the server.
   # If the server accepted the request but does not send back a
@@ -54,6 +57,7 @@ class RestInPlaceEditor
         @abort()
         
     @$element.html("saving...")
+    window.restInPlaceEditorActive = false
   
   loadViaGET : ->
     showRequest = @ajax()
