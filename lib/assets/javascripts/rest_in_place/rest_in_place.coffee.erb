@@ -18,15 +18,15 @@ class RestInPlaceEditor
     return if window.restInPlaceEditorActive
     window.restInPlaceEditorActive = true
     @oldValue = @$element.html()
-    @$element.trigger('activate.rest-in-place')
+    @$element.trigger('activate.rest-in-place', this)
     @$element.addClass('rip-active')
     @$element.unbind('click', @clickHandler)
     @activateForm()
-    @$element.trigger('ready.rest-in-place')
+    @$element.trigger('ready.rest-in-place', this)
   
   # Restore the element to its default state
   abort : ->
-    @$element.trigger('abort.rest-in-place')
+    @$element.trigger('abort.rest-in-place', this)
     @$element
       .html(@oldValue)
       .removeClass('rip-active')
@@ -38,7 +38,7 @@ class RestInPlaceEditor
   # parseable answer, a second request is initiated to retrieve the updated
   # value via GET
   update : ->
-    @$element.trigger('update.rest-in-place')
+    @$element.trigger('update.rest-in-place', this)
     updateRequest = @ajax
       type : "post"
       data : @requestData()
@@ -53,7 +53,7 @@ class RestInPlaceEditor
       if (jqXHR.status == 200 && textStatus == "parsererror")
         @loadViaGET()
       else
-        @$element.trigger('failure.rest-in-place')
+        @$element.trigger('failure.rest-in-place', this)
         @abort()
         
     @$element.html("saving...")
@@ -62,7 +62,7 @@ class RestInPlaceEditor
   loadViaGET : ->
     showRequest = @ajax()
     showRequest.done (data) => @loadSuccessCallback(data)
-    showRequest.fail => @$element.trigger('failure.rest-in-place')
+    showRequest.fail => @$element.trigger('failure.rest-in-place', this)
   
   # ## Implementation Methods
   #

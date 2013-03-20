@@ -170,12 +170,21 @@ it's associated with:
 - `update.rest-in-place` immediately before sending the update to the server
 - `abort.rest-in-place` when the user aborts the editing process.
 
+All events except `success.rest-in-place` pass the REST in Place editor object
+as an extra parameter.
+
 Bind to these events through the jQuery event mechanisms:
 
     $('#my-editable-element').bind('success.rest-in-place', function(event, data){
       console.log("Yay it worked! The new value is", data.whatever);
     });
     
+    $('#my-editable-element').bind('ready.rest-in-place', function(event, editor){
+      // monkeypatch: change the element to be saved on blur
+      $('#my-editable-element').blur(function(){
+        editor.update();
+      });
+    });
 
 Example
 =======
