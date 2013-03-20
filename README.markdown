@@ -179,9 +179,10 @@ Bind to these events through the jQuery event mechanisms:
       console.log("Yay it worked! The new value is", data.whatever);
     });
     
-    $('#my-editable-element').bind('ready.rest-in-place', function(event, editor){
+    $element.bind('ready.rest-in-place', function(event, editor){
       // monkeypatch: change the element to be saved on blur
-      $('#my-editable-element').blur(function(){
+      $element.unbind('blur');
+      $element.blur(function(){
         editor.update();
       });
     });
